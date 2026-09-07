@@ -7,6 +7,29 @@
     <title>Új hangulatbejegyzés</title>
   </head>
   <body>
+    <h1>Hangulat Napló</h1>
+    <h2>Új hangulatbejegyzés</h2>
+
+    <form id="hangulatForm">
+      <div mb-3>
+        <label for="hangulat">Hangulat:</label>
+        <select id="hangulat" name="hangulat" required>
+          <option value="">Válassz hangulatot</option>
+          <option value="boldog">😀</option>
+          <option value="közömbös">😐</option>
+          <option value="szomorú">😢</option>
+          <option value="álmos">😴</option>
+          <option value="dühös">😠</option>
+        </select>
+      </div>
+
+      <div mb-3>
+        <label for="megjegyzes">Megjegyzés:</label>
+        <textarea id="megjegyzes" name="megjegyzes" rows="4" cols="50"></textarea>        
+      </div>
+
+      <button type="submit">Mentés</button>
+    </form>
     
     <script type="module" src="/src/main.ts"></script>
   </body>
