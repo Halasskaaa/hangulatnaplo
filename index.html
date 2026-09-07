@@ -10,25 +10,35 @@
     <h2>Új hangulatbejegyzés</h2>
 
     <form id="hangulatForm">
-      <div mb-3>
-        <label for="hangulat">Hangulat:</label>
-        <select id="hangulat" name="hangulat" required>
-          <option value="">Válassz hangulatot</option>
+      <div class="mb-3">
+        <label for="inputHangulat" class="label">Hangulat</label>
+        <select id="inputHangulat" name="hangulat" class="form-control">
           <option value="boldog">😀</option>
-          <option value="közömbös">😐</option>
-          <option value="szomorú">😢</option>
-          <option value="álmos">😴</option>
-          <option value="dühös">😠</option>
+          <option value="kozombos">😐</option>
+          <option value="szomoru">😢</option>
+          <option value="almos">😴</option>
+          <option value="duhos">😠</option>
         </select>
       </div>
 
-      <div mb-3>
-        <label for="megjegyzes">Megjegyzés:</label>
-        <textarea id="megjegyzes" name="megjegyzes" rows="4" cols="50"></textarea>        
+      <div class="mb-3">
+        <label for="inputMegjegyzes" class="label">Megjegyzés</label>
+        <input type="text" id="inputMegjegyzes" name="megjegyzes" class="form-control" />      
       </div>
 
-      <button type="submit">Mentés</button>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Mentés</button>
+      </div>
     </form>
+
+    <table class="table">
+      <thead>
+          <th>Hangulat</th>
+          <th>Megjegyzés</th>
+          <th>Dátum</th>
+      </thead>
+      <tbody id="hangulatContent"></tbody>
+    </table>
     
     <script type="module" src="/src/main.ts"></script>
   </body>
