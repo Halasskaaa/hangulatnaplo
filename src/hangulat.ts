@@ -4,3 +4,4 @@ export interface Hangulat {
   hangulat: string
   szoveges_leiras: string
 }
+
