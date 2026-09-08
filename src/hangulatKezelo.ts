@@ -35,6 +35,20 @@ async function adatokBetoltese() {
         tdDatum.textContent = item.datum;
         tr.appendChild(tdDatum);
 
+        //
+        const tdDelete = document.createElement('td');
+        const delButton = document.createElement('button');
+        delButton.textContent = '❌';
+        delButton.addEventListener('click', async () => {
+            await fetch(`${API_URL}/${item.id}`, {
+                method: 'DELETE'
+            });
+            adatokBetoltese();
+        });
+        tdDelete.append(delButton);
+        tr.appendChild(tdDelete);
+        //
+
         content?.appendChild(tr);
     }
 }

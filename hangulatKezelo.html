@@ -14,7 +14,38 @@
 
     <h1>Hangulat Napló</h1>
     <h2>Hangulat kezelő</h2>
+
+    <form id="ujHangulat">
+      <div class="mb-3">
+        <label for="inputHangulat" class="label">Hangulat</label>
+        <select id="inputHangulat" name="hangulat" class="form-control">
+          <option value="😀">😀</option>
+          <option value="😐">😐</option>
+          <option value="😢">😢</option>
+          <option value="😴">😴</option>
+          <option value="😠">😠</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="inputMegjegyzes" class="label">Megjegyzés</label>
+        <input type="text" id="inputMegjegyzes" name="megjegyzes" class="form-control" />      
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Mentés</button>
+      </div>
+    </form>
+
+    <table class="table">
+      <thead>
+          <th>Hangulat</th>
+          <th>Megjegyzés</th>
+          <th>Dátum</th>
+      </thead>
+      <tbody id="content"></tbody>
+    </table>
     
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/hangulatKezelo.ts"></script>
 </body>
 </html>
