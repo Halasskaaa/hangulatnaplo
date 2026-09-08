@@ -19,7 +19,7 @@ async function adatokBetoltese() {
     const data = await response.json() as Hangulat[];
 
     const content = document.getElementById('content');
-    content!.innerHTML = ''
+    content!.innerHTML = '' // pay attention to this next time
     for (const item of data) {
         const tr = document.createElement('tr');
 
@@ -35,7 +35,24 @@ async function adatokBetoltese() {
         tdDatum.textContent = item.datum;
         tr.appendChild(tdDatum);
 
-        //
+        //Módosítás
+        const tdEdit = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.textContent = '✏️';
+
+        // Figure out how to edit things at all
+        // editButton.addEventListener('click', async () => {
+        //     await fetch(`${API_URL}/${item.id}`, {
+        //         method: 'PUT'
+
+        //     });
+        //     adatokBetoltese();
+            
+        // })
+        tdEdit.append(editButton);
+        tr.appendChild(tdEdit);
+
+        // Törlés
         const tdDelete = document.createElement('td');
         const delButton = document.createElement('button');
         delButton.textContent = '❌';
@@ -59,7 +76,7 @@ async function newData(e: SubmitEvent) {
     const adat = new FormData(urlap);
 
     const newData: UjHangulat =  {
-        datum: new Date().toISOString(),
+        datum: adat.get('datum')!.toString(),
         hangulat: adat.get('hangulat')!.toString(),
         szoveges_leiras: adat.get('megjegyzes')!.toString()
     };

@@ -19,7 +19,7 @@ async function adatokBetoltese() {
     const data = await response.json() as Hangulat[];
 
     const content = document.getElementById('content');
-    content!.innerHTML = ''
+    // content!.innerHTML = ''  <= you need this for when you create delete
     for (const item of data) {
         const tr = document.createElement('tr');
 
