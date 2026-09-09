@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Alkalmazás</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">ToDo Alkalmazás</h1>
+        <h2>Feladatok</h2>
+
+        <ul id="todoList" class="list-group mb-4"></ul>
+
+        <button class="btn btn-danger mb-4" onclick="clearTodos()">Összes törlése</button>
+
+        <h3>Új ToDo feladat hozzáadása</h3>
+        <form id="todoForm" class="mb-3">
+            <div class="form-group">
+                <label for="todoName">Feladat neve</label>
+                <input type="text" id="todoName" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="todoDate">Időpont</label>
+                <input type="datetime-local" id="todoDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="todoLocation">Helyszín</label>
+                <input type="text" id="todoLocation" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Hozzáadás</button>
+        </form>
+    </div>
+
+    <script>
+        let todos = JSON.parse(localStorage.getItem("todos")) || [];
+        let currentEditIndex = null;
+
+        const init = () => {
+            loadTodos();
+            document.getElementById("todoForm").addEventListener("submit", handleTodoSubmit);
+        };
+
+        const handleTodoSubmit = (e) => {
+            e.preventDefault();
+
+            const todoData = {
+                name: document.getElementById("todoName").value,
+                date: document.getElementById("todoDate").value,
+                location: document.getElementById("todoLocation").value,
+                done: false
+            };
+
+            if (currentEditIndex !== null) {
+                todos[currentEditIndex] = todoData;
+                currentEditIndex = null;
+            } else {
+                todos.push(todoData);
+            }
+
+            saveTodos();
+            document.getElementById("todoForm").reset();
+            loadTodos();
+        };
+
+        const saveTodos = () => {
+            localStorage.setItem("todos", JSON.stringify(todos));
+        };
+
+        const deleteTodo = (index) => {
+            todos.splice(index, 1);
+            saveTodos();
+            loadTodos();
+        };
+
+        window.toggleDone = (index) => {
+            todos[index].done = !todos[index].done;
+            saveTodos();
+            loadTodos();
+        };
+
+        function clearTodos() {
+            localStorage.removeItem("todos"); 
+            todos = [];
+            loadTodos();
+        }
+
+        const loadTodos = () => {
+            const todoList = document.getElementById("todoList");
+            todoList.innerHTML = "";
+
+            todos.forEach((todo, index) => {
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+
+                const left = document.createElement("div");
+                left.innerHTML = `
+                    <input type="checkbox" ${todo.done ? "checked" : ""} onchange="toggleDone(${index})">
+                    <strong ${todo.done ? 'style="text-decoration: line-through;"' : ""}>${todo.name}</strong><br>
+                    Időpont: ${todo.date}<br>
+                    Helyszín: ${todo.location}
+                `;
+
+                //
+                const buttons = document.createElement("div");
+
+                const editBtn = document.createElement("button");
+                editBtn.className = "btn btn-warning btn-sm mr-2";
+                editBtn.textContent = "Módosít";
+                editBtn.onclick = () => {
+                    document.getElementById("todoName").value = todo.name;
+                    document.getElementById("todoDate").value = todo.date;
+                    document.getElementById("todoLocation").value = todo.location;
+                    currentEditIndex = index;
+                };
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.className = "btn btn-danger btn-sm";
+                deleteBtn.textContent = "Töröl";
+                deleteBtn.onclick = () => deleteTodo(index);
+
+                buttons.appendChild(editBtn);
+                buttons.appendChild(deleteBtn);
+
+                listItem.appendChild(left);
+                listItem.appendChild(buttons);
+                todoList.appendChild(listItem);
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</body>
+</html>

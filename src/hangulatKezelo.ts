@@ -40,15 +40,10 @@ async function adatokBetoltese() {
         const editButton = document.createElement('button');
         editButton.textContent = '✏️';
 
-        // Figure out how to edit things at all
-        // editButton.addEventListener('click', async () => {
-        //     await fetch(`${API_URL}/${item.id}`, {
-        //         method: 'PUT'
+        // editButton.onclick = () => {
+        //     document.getElementById("inputDatum");
+        // }
 
-        //     });
-        //     adatokBetoltese();
-            
-        // })
         tdEdit.append(editButton);
         tr.appendChild(tdEdit);
 
